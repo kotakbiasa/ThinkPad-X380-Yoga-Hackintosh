@@ -5,7 +5,7 @@
 [![macOS](https://img.shields.io/badge/macOS-Ventura-brightgreen.svg?logo=apple)](https://developer.apple.com/documentation/macos-release-notes)
 [![macOS](https://img.shields.io/badge/macOS-Sonoma-brightgreen.svg?logo=apple)](https://developer.apple.com/documentation/macos-release-notes)
 [![macOS](https://img.shields.io/badge/macOS-Sequoia-brightgreen.svg?logo=apple)](https://developer.apple.com/documentation/macos-release-notes)
-[![OpenCore](https://img.shields.io/badge/OpenCore-1.0.3-blue.svg)](https://github.com/acidanthera/OpenCorePkg)
+[![OpenCore](https://img.shields.io/badge/OpenCore-1.0.6-blue.svg)](https://github.com/acidanthera/OpenCorePkg)
 [![Model](https://img.shields.io/badge/Model-20LJ-9cf)](https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_X380_Yoga/ThinkPad_X380_Yoga_Spec.PDF)
 [![BIOS](https://img.shields.io/badge/BIOS-1.41-blue)](https://pcsupport.lenovo.com/us/en/products/laptops-and-netbooks/thinkpad-x-series-laptops/thinkpad-x380-yoga/downloads/driver-list/component?name=BIOS%2FUEFI&id=5AC6A815-321D-440E-8833-B07A93E0428C)
 [![issues](https://img.shields.io/github/issues/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh-OpenCore)](https://github.com/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh-OpenCore/issues)
@@ -69,8 +69,8 @@ With that said I'm happy to help when/where I can. When you encounter bug or wan
 
 | Component     | Version |
 | ------------- | ------- |
-| macOS Sonoma  | 14.7.6  |
-| OpenCore      | v1.0.4  |
+| macOS Sequoia | 15.7.2  |
+| OpenCore      | v1.0.6  |
 
 </details>
 
@@ -155,6 +155,10 @@ DeviceProperties
 
 Although the Intel AC-8265 Card is compatible with both kexts (use either one or the other), there are Pros and Cons to both of them (check the [**FAQs**](https://openintelwireless.github.io/itlwm/FAQ.html#features) for other differences):
 
+> [!IMPORTANT]
+> **WiFi Kext Compatibility**: The included `AirportItlwm.kext` is specifically for **macOS Sequoia**.  
+> If you plan to install **macOS Sonoma**, you **MUST** replace this kext with the version compiled for Sonoma. Using the wrong version will result in boot failures or non-functional WiFi.
+
 - **AirportItlwm**: (used in macOS Sonoma)
 	- **Pro**: Can be used during macOS Setup/Recoveery which is not possible with `itlwm.kext`
 	- **Pro**: Supports Location Services and "Find My Mac"
@@ -175,7 +179,7 @@ Although the Intel AC-8265 Card is compatible with both kexts (use either one or
 
 > **🗒️Note:**
 > 
-> My config uses `AirportItlw.kext` by default since it allows accessing the internet during macOS installation (unlike `itlwm.kext` which requires an additional app to do so). Currently, AirportItlwm kexts for macOS Sequoia is included but you must patch, you can find how to patch [`see this`](https://osxlatitude.com/forums/topic/20330-wifi-in-sequoia-150-beta-patching-for-legacy-broadcom-wireless-cards/). If you want to use itlwm, disable AirportItlwm (all variants) and enable itlwm in the config.plist instead. Next, download the Helipad app, run it and add it to "Login Items" (in System Settings) so that it starts automatically with macOS.
+> My config uses `AirportItlw.kext` by default since it allows accessing the internet during macOS installation (unlike `itlwm.kext` which requires an additional app to do so). Currently, AirportItlwm kexts for macOS Sequoia is included but you must patch using [OCLP-Mod](https://github.com/laobamac/OCLP-Mod/releases). If you want to use itlwm, disable AirportItlwm (all variants) and enable itlwm in the config.plist instead. Next, download the Helipad app, run it and add it to "Login Items" (in System Settings) so that it starts automatically with macOS.
 
 </details>
 
@@ -446,7 +450,7 @@ and standbydelaylow is used when the remaining battery capacity is below highsta
 - [x] Keyboard map and hotkeys with [YogaSMC](https://github.com/zhen-zen/YogaSMC)
 - [x] Multi-Touch Screen `Touchscreen just feel more natural than using Touchpad (Touchpad gesture enabled). Pen also working`
 - [x] SIP and FileVault 2 can be turned on
-- [x] Micro SD Card Reader `slow r/w speed but works`
+- [ ] Micro SD Card Reader `Kext removed in 1.0.6 update`
 
 </details>
 
