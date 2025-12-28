@@ -57,10 +57,10 @@ With that said I'm happy to help when/where I can. When you encounter bug or wan
 | Memory    | 16GB DDR4 2400Mhz                                    |                                                              |
 | Camera    | 720p Camera + IR Camera                              |                                                              |
 | Audio     | Conexant® CX8200                                     | I suggest trying several layout ID `3, 15, 21, 23, or 80`    |
-| Touchoad  | ELAN v4 LEN2034 PS2 Interace                         | Trackpad not working? You can disable trackpoint in bios.    |
+| Touchpad  | ELAN v4 LEN2034 PS2 Interface                        | If the Trackpad is not working properly, try disabling the Trackpoint in the BIOS. |
 | Wifi & BT | Intel AC 8265 and Bluetooth                          | Use AirportItlwm for your macOS version and enjoy native Wi-Fi control. |
 | Ethernet  | Intel I219-LM4 Gigabit Ethernet                      |                                                              | 
-| Input     | PS2 Keyboard & I2CHID TrackPad (touchscreen and pen) | I'm using [YogaSMC](https://github.com/zhen-zen/YogaSMC) for media keys. The kext is in the folder but **you'll need to install the app.** |
+| Input     | PS2 Keyboard & I2CHID TrackPad (touchscreen and pen) | I'm using [YogaSMC](https://github.com/zhen-zen/YogaSMC) for media keys. The kext is in the folder but **you must install the YogaSMC app separately.** |
 
 </details>
 
@@ -122,9 +122,9 @@ Config to allow you to use Apple Services (such as iMessage)
 3. Type `MacBookPro15,2 5`, then press <kbd>Enter</kbd>
 4. Open `EFI/Config.plist` (I highly recommend using [ProperTree](https://github.com/corpnewt/ProperTree)) and navigate to `PlatformInfo -> Generic`
 5. Add one of the script's result to `MLB`, `SystemSerialNumber`, and `SystemUUID`
-7. Replace `ROM` with your MAC Address (`System Preferences -> Network -> Ethernet -> Advanced -> Hardware -> MAC Address`, then remove all the colons `:`). Or you can also try using a real Apple MAC Address
-8. Save and Reboot
-9. Check the Serial Number validity. Repeat step 5 and choose different result (or generate new set of SMBIOS) until you find invalid Serial Number
+6. Replace `ROM` with your MAC Address (`System Preferences -> Network -> Ethernet -> Advanced -> Hardware -> MAC Address`, then remove all the colons `:`). Or you can also try using a real Apple MAC Address
+7. Save and Reboot
+8. Check the Serial Number validity. Repeat step 5 and choose different result (or generate new set of SMBIOS) until you find invalid Serial Number
 </details>
 
 ## 🧰 Post-install (optional)
@@ -160,7 +160,7 @@ Although the Intel AC-8265 Card is compatible with both kexts (use either one or
 > If you plan to install **macOS Sonoma**, you **MUST** replace this kext with the version compiled for Sonoma. Using the wrong version will result in boot failures or non-functional WiFi.
 
 - **AirportItlwm**: (used in macOS Sonoma)
-	- **Pro**: Can be used during macOS Setup/Recoveery which is not possible with `itlwm.kext`
+	- **Pro**: Can be used during macOS Setup/Recovery which is not possible with `itlwm.kext`
 	- **Pro**: Supports Location Services and "Find My Mac"
  	- **Pro**: Connects faster to Wi-Fi Hotspots than `itlwm.kext`
 	- **Con**: Doesn't perform as well as `itlwm.kext`
@@ -175,7 +175,7 @@ Although the Intel AC-8265 Card is compatible with both kexts (use either one or
 	- **Con**: Requires [**HeliPort**](https://github.com/diepeterpan/HeliPort/releases) app to connect to Wi-Fi hotspots, so it can't be used during macOS Setup/Recovery
 	- **Con**: Doesn't support Location Services
 
-- Pre-compiled WiFi kexts for other versions of macOS can be found in the [Additional Files](hhttps://github.com/OpenIntelWireless/itlwm/releases) section! You will need them if you want to run other macOS versions than Sonoma or Sequioa!
+- Pre-compiled WiFi kexts for other versions of macOS can be found in the [Additional Files](https://github.com/OpenIntelWireless/itlwm/releases) section! You will need them if you want to run other macOS versions than Sonoma or Sequoia!
 
 > **🗒️Note:**
 > 
@@ -438,17 +438,17 @@ and standbydelaylow is used when the remaining battery capacity is below highsta
 <summary><strong>✅ What's working</strong></summary>
 </br>
 
-- [x] Intel HD 620 Graphics `incuding graphics acceleration`
+- [x] Intel HD 620 Graphics `including graphics acceleration`
 - [x] Battery management
 - [x] USB ports
 - [x] Internal camera `working fine on FaceTime, Skype, Zoom and others`
 - [x] Sleep / Wake / Shutdown / Reboot
 - [X] Intel WiFi & Bluetooth (thanks to [itlwn](https://github.com/OpenIntelWireless/itlwm) & [Heliport](https://github.com/OpenIntelWireless/HeliPort) )
-- [x] iMessage, FaceTime, App Store, iTunes Store `Please generate your own SMBIOS`
+- [x] iMessage, FaceTime, App Store, iTunes Store `(Requires valid SMBIOS)`
 - [x] Speakers and headphones combo jack
 - [x] Microphone
 - [x] Keyboard map and hotkeys with [YogaSMC](https://github.com/zhen-zen/YogaSMC)
-- [x] Multi-Touch Screen `Touchscreen just feel more natural than using Touchpad (Touchpad gesture enabled). Pen also working`
+- [x] Multi-Touch Screen `Touchscreen feels more natural than using Touchpad (Touchpad gesture enabled). Pen also working`
 - [x] SIP and FileVault 2 can be turned on
 - [ ] Micro SD Card Reader `Kext removed in 1.0.6 update`
 
