@@ -466,7 +466,7 @@ and standbydelaylow is used when the remaining battery capacity is below highsta
 - [x] USB ports
 - [x] Internal camera `working fine on FaceTime, Skype, Zoom and others`
 - [x] Sleep / Wake / Shutdown / Reboot
-- [X] Intel WiFi & Bluetooth (native Wi-Fi via [AirportItlwm-Sequoia v2.4.0-alpha](https://github.com/laobamac/itlwm/releases), no HeliPort needed)
+- [X] Intel WiFi & Bluetooth (native Wi-Fi via [itlwm](https://github.com/laobamac/itlwm), no HeliPort needed)
 - [x] iMessage, FaceTime, App Store, iTunes Store `(Requires valid SMBIOS)`
 - [x] Speakers and headphones combo jack
 - [x] Microphone
