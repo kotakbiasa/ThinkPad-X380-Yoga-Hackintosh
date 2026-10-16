@@ -85,9 +85,9 @@ With that said I'm happy to help when/where I can. When you encounter bug or wan
 </details>
 
 <details>
-<summary><strong>🔧 Kernel extensions in this EFI</strong></summary>
+<summary><strong>🔧 Drivers in this EFI</strong></summary>
 
-| Kext | Version | Purpose |
+| Driver | Version | Purpose |
 | ---- | ------- | ------- |
 | [Lilu](https://github.com/acidanthera/Lilu) | 1.7.2 | Patch engine — required by most of the below |
 | [WhateverGreen](https://github.com/acidanthera/WhateverGreen) | 1.7.1 | Graphics, audio, Wi-Fi fixes |
