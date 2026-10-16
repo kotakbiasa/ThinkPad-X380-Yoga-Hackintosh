@@ -549,6 +549,6 @@ Sonoma
 - [ic005k](https://github.com/ic005k/OCAuxiliaryTools) for OpenCore Auxiliary Tools
 - [benbaker76](https://github.com/benbaker76/Hackintool) for Hackintool
 - [zhen-zen](https://github.com/zhen-zen/YogaSMC) for YogaSMC
-- [laobamac](https://github.com/laobamac/itlwm) for the itlwm fork with native AirportItlwm on Sequoia — thank you for keeping Intel Wi-Fi alive on macOS! 🙏
+- [laobamac](https://github.com/laobamac/itlwm) for the itlwm fork with native AirportItlwm on Sequoia & Tahoe — thank you for keeping Intel Wi-Fi alive on macOS! 🙏
 - [r/hackintosh](https://www.reddit.com/r/hackintosh/) community for helping me find solution to various issue I came across
 ---
