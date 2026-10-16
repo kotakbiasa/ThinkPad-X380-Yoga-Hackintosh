@@ -477,7 +477,7 @@ and standbydelaylow is used when the remaining battery capacity is below highsta
 - [x] Multi-Touch Screen `Touchscreen feels more natural than using Touchpad (Touchpad gesture enabled). Pen also working`
 - [x] SIP and FileVault 2 can be turned on
 - [x] Fingerprint reader (Validity `138a:009d`) — lock-screen unlock via VFS5011-hackintosh, see setup above `(experimental)`
-- [ ] Micro SD Card Reader `Kext removed in 1.0.6 update`
+- [x] Micro SD Card Reader (Realtek RTS522A via [RealtekCardReader](https://github.com/0xFireWolf/RealtekCardReader) 0.9.7 + Friend)
 
 </details>
 
