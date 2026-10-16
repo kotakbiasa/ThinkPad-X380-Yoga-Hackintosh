@@ -68,7 +68,7 @@ With that said I'm happy to help when/where I can. When you encounter bug or wan
 | Camera    | 720p Camera + IR Camera                              |                                                              |
 | Audio     | Conexant® CX8200                                     | I suggest trying several layout ID `3, 15, 21, 23, or 80`    |
 | Touchpad  | ELAN v4 LEN2034 PS2 Interface                        | If the Trackpad is not working properly, try disabling the Trackpoint in the BIOS. |
-| Wifi & BT | Intel AC 8265 and Bluetooth                          | Native Wi-Fi on Sequoia via [AirportItlwm-Sequoia v2.4.0-alpha](https://github.com/laobamac/itlwm/releases) (no HeliPort / OCLP patch needed). |
+| Wifi & BT | Intel AC 8265 and Bluetooth                          | Native Wi-Fi on Sequoia via [itlwm](https://github.com/laobamac/itlwm) (no HeliPort / OCLP patch needed). |
 | Ethernet  | Intel I219-LM4 Gigabit Ethernet                      |                                                              | 
 | Input     | PS2 Keyboard & I2CHID TrackPad (touchscreen and pen) | I'm using [YogaSMC](https://github.com/zhen-zen/YogaSMC) for media keys. The kext is in the folder but **you must install the YogaSMC app separately.** |
 
@@ -81,6 +81,49 @@ With that said I'm happy to help when/where I can. When you encounter bug or wan
 | ------------- | ------- |
 | macOS Sequoia | 15.8.1  |
 | OpenCore      | v1.0.8  |
+
+</details>
+
+<details>
+<summary><strong>🔧 Kernel extensions in this EFI</strong></summary>
+
+| Kext | Version | Purpose |
+| ---- | ------- | ------- |
+| [Lilu](https://github.com/acidanthera/Lilu) | 1.7.2 | Patch engine — required by most of the below |
+| [WhateverGreen](https://github.com/acidanthera/WhateverGreen) | 1.7.1 | Graphics, audio, Wi-Fi fixes |
+| [AppleALC](https://github.com/acidanthera/AppleALC) | 1.9.8 | Audio (Conexant CX8200, `alcid=23`) |
+| [VirtualSMC](https://github.com/acidanthera/VirtualSMC) | 1.3.8 | Sensors + battery/fan |
+| [SMCBatteryManager](https://github.com/acidanthera/VirtualSMC) | 1.3.8 | Battery status |
+| [SMCLightSensor](https://github.com/acidanthera/VirtualSMC) | 1.3.8 | Ambient light sensor |
+| [SMCProcessor](https://github.com/acidanthera/VirtualSMC) | 1.3.8 | CPU temperature |
+| [SMCSuperIO](https://github.com/acidanthera/VirtualSMC) | 1.3.8 | Super I/O (fans, keys) |
+| [YogaSMC](https://github.com/zhen-zen/YogaSMC) | 1.5.3 | Fn keys, fan control, battery limit |
+| [IntelMausi](https://github.com/acidanthera/IntelMausi) | 1.0.9 | Ethernet I219-LM |
+| [itlwm](https://github.com/laobamac/itlwm) — AirportItlwm | 2.4.0 | Native Wi-Fi, AC 8265 (Sequoia) |
+| [IntelBTPatcher](https://github.com/acidanthera/IntelBluetoothFirmware) | 2.5.0 | Bluetooth firmware patcher |
+| [IntelBluetoothFirmware](https://github.com/acidanthera/IntelBluetoothFirmware) | 2.5.0 | Bluetooth firmware |
+| [HoRNDIS](https://github.com/abdullahselek/OpenIntelWireless) | 9.3 | USB Wi-Fi driver (unused by default) |
+| [VoodooPS2Controller](https://github.com/acidanthera/VoodooPS2) | 2.3.7 | Trackpoint + keyboard |
+| [VoodooI2C](https://github.com/VoodooI2C/VoodooI2C) | 2.9.1 | I²C (ELAN touchpad, touchscreen) |
+| [VoodooI2CHID](https://github.com/VoodooI2C/VoodooI2C) | 1.0 | HID support for I²C devices |
+| [USBToolBox](https://github.com/USBToolBox/tool) | 1.2.0 | USB injection engine |
+| [UTBDefault](https://github.com/USBToolBox/tool) | 1.0 | USB port map (this machine) |
+| [RealtekCardReader](https://github.com/0xFireWolf/RealtekCardReader) | 0.9.7 | SD card reader (RTS522A) |
+| [RealtekCardReaderFriend](https://github.com/0xFireWolf/RealtekCardReaderFriend) | 1.0.4 | Companion to the above |
+| [NVMeFix](https://github.com/acidanthera/NVMeFix) | 1.1.4 | NVMe compatibility |
+| [FeatureUnlock](https://github.com/acidanthera/FeatureUnlock) | 1.1.9 | Unlocks Sidecar/Continuity features |
+| [RestrictEvents](https://github.com/acidanthera/RestrictEvents) | 1.1.7 | Blocks unwanted firmware updates |
+| [BlueToolFixup](https://github.com/acidanthera/BlueToolFixup) | 2.6.9 | Required by AirportItlwm |
+| [AMFIPass](https://github.com/dortania/OpenCore-Legacy-Patcher) | 1.4.1 | Chainloads AMFIPatcher (see note below) |
+| [NoTouchID](https://github.com/acidanthera/NoTouchID) | 1.0.4 | Disables Touch ID stack |
+| [ECEnabler](https://github.com/1Revenger1/ECEnabler) | 1.0.6 | Embedded controller enable |
+| [RTCMemoryFixup](https://github.com/1Revenger1/RTCMemoryFixup) | 1.0.8 | Fixes RTC RAM reset |
+| [BrightnessKeys](https://github.com/1Revenger1/BrightnessKeys) | 1.0.4 | Brightness key support |
+
+> **🗒️Note:**
+> Load order in `config.plist` matters — Lilu and WhateverGreen must come before the kexts that depend on them.
+>
+> **VoodooInput:** VoodooPS2Controller and VoodooI2C each bundle their own `VoodooInput.kext`. Keep both at the **same version** (currently 1.1.6) — a mismatch makes the trackpoint and touchpad fight over the multitouch pipeline, which shows up as freezes or jumping cursor when both are used together. If you update either kext, copy the newer VoodooInput over the other.
 
 </details>
 
