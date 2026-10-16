@@ -85,7 +85,7 @@ With that said I'm happy to help when/where I can. When you encounter bug or wan
 </details>
 
 <details>
-<summary><strong>🔧 Drivers in this EFI</strong></summary>
+<summary><strong>🔧 Components</strong></summary>
 
 | Driver | Version | Purpose |
 | ---- | ------- | ------- |
