@@ -187,7 +187,7 @@ Although the Intel AC-8265 Card is compatible with both kexts (use either one or
 <summary><strong>ThinkPad X380 Yoga Fingerprint Reader (experimental ✅)</strong></summary>
 </br>
 
-The X380 Yoga's Validity `138a:009d` reader **works for lock-screen unlock** (tested on Sequoia 15.8.1) via [Hackintosh Touch-ID](https://github.com/hackintosh-user/VFS5011-hackintosh) (`active-development` branch). It is a user-space daemon (libusb + Accessibility password typing), not a kernel driver — no OpenCore changes needed.
+The X380 Yoga's Validity `138a:009d` reader **works for lock-screen unlock** (tested on Sequoia 15.8.1) via [ThinkPad-X380-Yoga-Hackintosh Fingerprint](https://github.com/hackintosh-user/VFS5011-hackintosh) (`active-development` branch). It is a user-space daemon (libusb + Accessibility password typing), not a kernel driver — no OpenCore changes needed.
 
 > [!NOTE]
 > `009d` reports sensor type `0xdb`, which needs the type-`0xdb` capture path. If calibration fails with `status=0x0534`, your client build predates that support — update to the latest `active-development`.
@@ -476,7 +476,7 @@ and standbydelaylow is used when the remaining battery capacity is below highsta
 - [x] Keyboard map and hotkeys with [YogaSMC](https://github.com/zhen-zen/YogaSMC)
 - [x] Multi-Touch Screen `Touchscreen feels more natural than using Touchpad (Touchpad gesture enabled). Pen also working`
 - [x] SIP and FileVault 2 can be turned on
-- [x] Fingerprint reader (Validity `138a:009d`) — lock-screen unlock via Hackintosh Touch-ID, see setup above `(experimental)`
+- [x] Fingerprint reader (Validity `138a:009d`) — lock-screen unlock via ThinkPad-X380-Yoga-Hackintosh Fingerprint, see setup above `(experimental)`
 - [ ] Micro SD Card Reader `Kext removed in 1.0.6 update`
 
 </details>
