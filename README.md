@@ -8,8 +8,8 @@
 [![OpenCore](https://img.shields.io/badge/OpenCore-1.0.8-blue.svg)](https://github.com/acidanthera/OpenCorePkg)
 [![Model](https://img.shields.io/badge/Model-20LJ-9cf)](https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_X380_Yoga/ThinkPad_X380_Yoga_Spec.PDF)
 [![BIOS](https://img.shields.io/badge/BIOS-1.41-blue)](https://pcsupport.lenovo.com/us/en/products/laptops-and-netbooks/thinkpad-x-series-laptops/thinkpad-x380-yoga/downloads/driver-list/component?name=BIOS%2FUEFI&id=5AC6A815-321D-440E-8833-B07A93E0428C)
-[![issues](https://img.shields.io/github/issues/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh-OpenCore)](https://github.com/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh-OpenCore/issues)
-[![last commit](https://img.shields.io/github/last-commit/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh-OpenCore)](https://github.com/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh-OpenCore)
+[![issues](https://img.shields.io/github/issues/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh)](https://github.com/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh/issues)
+[![last commit](https://img.shields.io/github/last-commit/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh)](https://github.com/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh/commits/main)
 [![License](https://img.shields.io/badge/license-MIT-purple.svg)](/LICENSE)
 
 **DISCLAIMER:**  
@@ -17,6 +17,16 @@ This OpenCore EFI works fine on my Thinkpad X380 Yoga.
 As you embark on your Hackintosh journey you are encouraged to **READ** the entire README and [Dortania](https://dortania.github.io/getting-started/) guides before you start to get an understanding of the install process. It will save many a message instructing you to read the manual. 
 
 With that said I'm happy to help when/where I can. When you encounter bug or want to improve this repo, consider opening an issue or pull request. You can also find a wealth of knowledge on [Reddit](https://www.reddit.com/r/hackintosh/), [TonyMacX86](https://www.tonymacx86.com) or [Google](https://www.google.com).
+
+## 📑 Contents
+
+- [Introduction](#-introduction) — hardware specs & required tools
+- [Installation](#-installation) — create installer, BIOS settings, Apple Services
+- [Post-install](#-post-install-optional) — audio, Wi-Fi, fingerprint reader, power, USB mapping
+- [Other tweaks](#️-other-tweaks) — HiDPI, YogaSMC, shortcuts, assistants, dock, dual-boot clock, hibernation
+- [Status](#-status) — what works / doesn't
+- [Performance](#-performance) — benchmarks
+- [Credits](#credits)
 
 ## 👋 Introduction
 
@@ -69,8 +79,8 @@ With that said I'm happy to help when/where I can. When you encounter bug or wan
 
 | Component     | Version |
 | ------------- | ------- |
-| macOS Sequoia | 15.7.2  |
-| OpenCore      | v1.0.6  |
+| macOS Sequoia | 15.8.1  |
+| OpenCore      | v1.0.8  |
 
 </details>
 
@@ -81,7 +91,7 @@ With that said I'm happy to help when/where I can. When you encounter bug or wan
 </br>
 
 1. [Create an installation media](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/#making-the-installer)
-1. Download the [latest EFI folder](https://github.com/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh/archive/refs/heads/main.zip) and copy it into the ESP partiton
+1. Download the [latest EFI folder](https://github.com/kotakbiasa/ThinkPad-X380-Yoga-Hackintosh/archive/refs/heads/main.zip) and copy it into the ESP partition
 1. Change your BIOS settings according to the table below
 1. Boot from the USB installer (press `F12` to choose boot volume) and [start the installation process](https://dortania.github.io/OpenCore-Install-Guide/installation/installation-process.html#booting-the-opencore-usb)
 
@@ -153,33 +163,20 @@ DeviceProperties
 <summary><strong>Enable Intel WLAN cards</strong></summary>
 </br>
 
-Although the Intel AC-8265 Card is compatible with both kexts (use either one or the other), there are Pros and Cons to both of them (check the [**FAQs**](https://openintelwireless.github.io/itlwm/FAQ.html#features) for other differences):
+This EFI uses **`AirportItlwm-Sequoia`** (native Wi-Fi interface, no extra app) for the Intel AC-8265. The alternative `itlwm.kext` + [HeliPort](https://github.com/OpenIntelWireless/HeliPort) works across multiple macOS versions and connects faster, but needs the HeliPort app and can't be used during Setup/Recovery.
 
 > [!IMPORTANT]
-> **WiFi Kext Compatibility**: The included `AirportItlwm.kext` is specifically for **macOS Sequoia**.  
-> If you plan to install **macOS Sonoma**, you **MUST** replace this kext with the version compiled for Sonoma. Using the wrong version will result in boot failures or non-functional WiFi.
+> **WiFi Kext Compatibility**: the included `AirportItlwm.kext` is built specifically for **macOS Sequoia**.
+> For **macOS Sonoma** you **MUST** swap in the Sonoma build (grab it from [releases](https://github.com/laobamac/itlwm/releases)). A mismatched kext means boot failure or dead Wi-Fi.
 
-- **AirportItlwm**: (used in macOS Sonoma)
-	- **Pro**: Can be used during macOS Setup/Recovery which is not possible with `itlwm.kext`
-	- **Pro**: Supports Location Services and "Find My Mac"
- 	- **Pro**: Connects faster to Wi-Fi Hotspots than `itlwm.kext`
-	- **Con**: Doesn't perform as well as `itlwm.kext`
-	- **Con**: Can't connect to hidden WiFi Networks
-	- **Con**: Requires the correct kext per macOS version, so running multiple version of macOS requires multiple versions of this kext controlled via `MinKernel` and `MaxKernel` settings
+Quick comparison (see the [FAQ](https://openintelwireless.github.io/itlwm/FAQ.html#features) for the full list):
 
-- **itlwm.kext** (used in Sequoia)
-	- **Pro**: `itlwm.kext` works across _multiple_ versions of macOS
-	- **Pro**: Loading webpages feels a lot quicker than with `AirportItlwm` 
-	- **Pro**: Can connect to hidden WiFi Networks
- 	- **Pro**: Does work with iMessage and FaceTime 	
-	- **Con**: Requires [**HeliPort**](https://github.com/diepeterpan/HeliPort/releases) app to connect to Wi-Fi hotspots, so it can't be used during macOS Setup/Recovery
-	- **Con**: Doesn't support Location Services
-
-- Pre-compiled WiFi kexts for other versions of macOS can be found in the [Additional Files](https://github.com/OpenIntelWireless/itlwm/releases) section! You will need them if you want to run other macOS versions than Sonoma or Sequoia!
+- **AirportItlwm**: native control in System Settings, works in Setup/Recovery, supports Location Services — but one build per macOS version (use `MinKernel`/`MaxKernel` if you multi-boot), and can't join hidden networks.
+- **itlwm.kext**: one kext for many macOS versions, faster page loads, hidden networks OK, iMessage/FaceTime friendly — but requires the HeliPort app (add it to Login Items) and no Location Services.
 
 > **🗒️Note:**
-> 
-> My config uses `AirportItlwm.kext` by default since it allows accessing the internet during macOS installation (unlike `itlwm.kext` which requires an additional app to do so). On **macOS Sequoia** the included kext is **AirportItlwm-Sequoia v2.4.0-alpha from the [laobamac/itlwm](https://github.com/laobamac/itlwm) fork**, which drives the Intel AC-8265 through the **native Wi-Fi interface** (System Settings, no HeliPort) — tested working on Sequoia 15.8.1, **no [OCLP-Mod](https://github.com/laobamac/OCLP-Mod/releases) patch required**. If you want to use itlwm instead, disable AirportItlwm (all variants) and enable itlwm in the config.plist. Next, download the Helipad app, run it and add it to "Login Items" (in System Settings) so that it starts automatically with macOS.
+>
+> On **macOS Sequoia** the included kext is **AirportItlwm-Sequoia v2.4.0-alpha from the [laobamac/itlwm](https://github.com/laobamac/itlwm) fork**, which drives the Intel AC-8265 through the **native Wi-Fi interface** (System Settings, no HeliPort) — tested working on Sequoia 15.8.1, **no [OCLP-Mod](https://github.com/laobamac/OCLP-Mod/releases) patch required**. To switch to itlwm instead, disable AirportItlwm (all variants) and enable itlwm in `config.plist`.
 
 </details>
 
@@ -213,14 +210,14 @@ sudo ./hack-touchid
 <summary><strong>CPUFriend power management</strong></summary>
 <br>
 
-Generate `CPUFriendDataProvider` or `ssdt_data.aml` (choose one) for your machine [here](https://github.com/acidanthera/CPUFriend) or use the ssd_data.aml file provided. My files are set for power conservation over performance. Highly recommended that you use power management.
+Not used anymore — power management runs on native XCPM and the CPUFriend kexts were removed from this EFI. If you want custom frequency vectors, generate a `CPUFriendDataProvider` for your machine with [CPUFriend](https://github.com/acidanthera/CPUFriend) and add it back.
 
 </details>
 
 <details> 
 <summary><strong>USB Port Mapping</strong></summary>
 
-While first port mapping I followed the [Dortania guide here](https://dortania.github.io/OpenCore-Post-Install/usb/#macos-and-the-15-port-limit) with USBInjectAll.kext install...  when doing so the internal USB ports did not show up and the cameras, touch screen, and bluetooth did not function. I noticed on the `USBmap tool` screen that RHUB was showing so I Googled it and it brought me back to the [Dortania guide here](https://dortania.github.io/OpenCore-Post-Install/usb/manual/manual.html#special-notes). I added the SSDT-RHUB.aml to the APCI folder rebooted and all the ports showed up. I then mapped the USB ports creating the included USBMap.kext file.
+Ports are mapped with [USBToolBox](https://github.com/USBToolBox/tool) + the included `UTBDefault.kext`. One gotcha from the original mapping session: the internal ports (cameras, touchscreen, Bluetooth) only showed up after handling RHUB per the [manual mapping notes](https://dortania.github.io/OpenCore-Post-Install/usb/manual/manual.html#special-notes) — keep that in mind if you ever redo the map.
 
 </details> 
 
@@ -248,7 +245,7 @@ Or try an [alternative method](https://github.com/bbhardin/A-Guide-to-MacOS-Scal
 
 - Download [**YogaSMC-App**](https://github.com/zhen-zen/YogaSMC/files/14324664/Builds.zip) and mount it. This is a custom build which fixes the "Failed to open Preferences" [issue](https://github.com/zhen-zen/YogaSMC/issues/189) in Ventura and newer  
 	- Double-click the YogaSMC **prefPane** to install it
-	- Drag the `YogaSMC` app into the "Programs" folder and run it
+	- Drag the `YogaSMC` app into the Applications folder and run it
 	- Click on the icon (`⌥`) in the menu bar and select "Start at Login"
 	- Now you can control performance profiles, fan speed and other settings
 </details>
@@ -262,7 +259,7 @@ Super useful shortcut that I wish I had it on my previous MBP. Default is `⌘�
 1. Open SystemPreferences.app
 1. Go under `Keyboard > Shortcuts > Screenshots`
 1. Click on `Screenshot and recording options` field
-1. Press `PrtSc` on your keyboard (it should came out as `F13`)
+1. Press `PrtSc` on your keyboard (it should come out as `F13`)
 
 </details>
 
@@ -271,9 +268,9 @@ Super useful shortcut that I wish I had it on my previous MBP. Default is `⌘�
 </br>
 
 1. Get a pair of Patch & SSDT from [Samples](./Tools/Thinkpad%20Assistant/Samples/SSDT-X380-KBRD.dsl) folder
-2. Compile SSDT (ex. `iasl -vo SSDT-X380-KBRD.dsl`)
+2. Compile SSDT (e.g. `iasl -vo SSDT-X380-KBRD.dsl`)
 3. Copy `SSDT.aml` to EFI/OC/ACPI
-4. Apply patch on `config.plst` with [OCAT](https://github.com/ic005k/OCAuxiliaryTools)
+4. Apply patch on `config.plist` with [OCAT](https://github.com/ic005k/OCAuxiliaryTools)
 5. Download [Thinkpad Assistant](./Tools/Thinkpad%20Assistant/ThinkpadAssistant.dmg)
 6. Extract & Copy to Applications folder
 7. Start Thinkpad Assistant & Tick 'Launch on Login' in Menubar
