@@ -184,7 +184,7 @@ Although the Intel AC-8265 Card is compatible with both kexts (use either one or
 </details>
 
 <details>  
-<summary><strong>Enable Fingerprint Reader (experimental ✅)</strong></summary>
+<summary><strong>ThinkPad X380 Yoga Fingerprint Reader (experimental ✅)</strong></summary>
 </br>
 
 The X380 Yoga's Validity `138a:009d` reader **works for lock-screen unlock** (tested on Sequoia 15.8.1) via [Hackintosh Touch-ID](https://github.com/hackintosh-user/VFS5011-hackintosh) (`active-development` branch). It is a user-space daemon (libusb + Accessibility password typing), not a kernel driver — no OpenCore changes needed.
