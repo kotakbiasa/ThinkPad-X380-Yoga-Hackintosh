@@ -184,6 +184,32 @@ Although the Intel AC-8265 Card is compatible with both kexts (use either one or
 </details>
 
 <details>  
+<summary><strong>Enable Fingerprint Reader (experimental ✅)</strong></summary>
+</br>
+
+The X380 Yoga's Validity `138a:009d` reader **works for lock-screen unlock** (tested on Sequoia 15.8.1) via [Hackintosh Touch-ID](https://github.com/hackintosh-user/VFS5011-hackintosh) (`active-development` branch). It is a user-space daemon (libusb + Accessibility password typing), not a kernel driver — no OpenCore changes needed.
+
+> [!NOTE]
+> `009d` reports sensor type `0xdb`, which needs the type-`0xdb` capture path. If calibration fails with `status=0x0534`, your client build predates that support — update to the latest `active-development`.
+
+**Setup:**
+```bash
+# 1. Requirements: Xcode Command Line Tools, Homebrew, OpenCore ≥ 1.0.6
+git clone --branch active-development https://github.com/hackintosh-user/VFS5011-hackintosh.git
+cd VFS5011-hackintosh
+./prep_and_build.sh --sensor metallica   # installs libusb/openssl/innoextract, builds client + agent
+sudo ./hack-touchid
+```
+1. `[1] Enroll` — swipe one finger ~10x. If the sensor was ever paired on Windows/Linux, you'll be asked once for the laptop's real DMI product name + serial (e.g. from Windows `Get-CimInstance Win32_ComputerSystemProduct`), then it's remembered.
+2. `[2] Verify` — one touch to confirm matching.
+3. `[3] Deploy` — installs the daemon (approve the Accessibility prompt in System Settings).
+4. Lock the screen (`Ctrl+Cmd+Q`) and swipe.
+
+**Limitations:** no login right after reboot/shutdown, no `sudo` in Terminal. macOS updates wipe the daemon → re-run `[3] Deploy`. What it covers: lock screen, System Settings padlock, Finder password prompts, Passwords.app, Keychain Access.
+
+</details>
+
+<details>  
 <summary><strong>CPUFriend power management</strong></summary>
 <br>
 
@@ -450,6 +476,7 @@ and standbydelaylow is used when the remaining battery capacity is below highsta
 - [x] Keyboard map and hotkeys with [YogaSMC](https://github.com/zhen-zen/YogaSMC)
 - [x] Multi-Touch Screen `Touchscreen feels more natural than using Touchpad (Touchpad gesture enabled). Pen also working`
 - [x] SIP and FileVault 2 can be turned on
+- [x] Fingerprint reader (Validity `138a:009d`) — lock-screen unlock via Hackintosh Touch-ID, see setup above `(experimental)`
 - [ ] Micro SD Card Reader `Kext removed in 1.0.6 update`
 
 </details>
@@ -459,7 +486,6 @@ and standbydelaylow is used when the remaining battery capacity is below highsta
 </br>
 
 - [ ] Safari DRM `Use Chromium engine to watch Apple TV+, Amazon Prime Video, Netflix and others`
-- [ ] Fingerprint reader - `No. Don't expect macOS driver any time soon.`
 - [ ] Samsung PM 981 NVME drive - `Still unstable. Could work for some, not for others. See `[Anti-Hackintosh Buyers Guide - Storage](https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/Storage.html)
 - [ ] Sidecar Wireless `doesn't work without apple native WIFI card`
 
