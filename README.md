@@ -58,7 +58,7 @@ With that said I'm happy to help when/where I can. When you encounter bug or wan
 | Camera    | 720p Camera + IR Camera                              |                                                              |
 | Audio     | Conexant® CX8200                                     | I suggest trying several layout ID `3, 15, 21, 23, or 80`    |
 | Touchpad  | ELAN v4 LEN2034 PS2 Interface                        | If the Trackpad is not working properly, try disabling the Trackpoint in the BIOS. |
-| Wifi & BT | Intel AC 8265 and Bluetooth                          | Use AirportItlwm for your macOS version and enjoy native Wi-Fi control. |
+| Wifi & BT | Intel AC 8265 and Bluetooth                          | Native Wi-Fi on Sequoia via [AirportItlwm-Sequoia v2.4.0-alpha](https://github.com/laobamac/itlwm/releases) (no HeliPort / OCLP patch needed). |
 | Ethernet  | Intel I219-LM4 Gigabit Ethernet                      |                                                              | 
 | Input     | PS2 Keyboard & I2CHID TrackPad (touchscreen and pen) | I'm using [YogaSMC](https://github.com/zhen-zen/YogaSMC) for media keys. The kext is in the folder but **you must install the YogaSMC app separately.** |
 
@@ -179,7 +179,7 @@ Although the Intel AC-8265 Card is compatible with both kexts (use either one or
 
 > **🗒️Note:**
 > 
-> My config uses `AirportItlw.kext` by default since it allows accessing the internet during macOS installation (unlike `itlwm.kext` which requires an additional app to do so). Currently, AirportItlwm kexts for macOS Sequoia is included but you must patch using [OCLP-Mod](https://github.com/laobamac/OCLP-Mod/releases). If you want to use itlwm, disable AirportItlwm (all variants) and enable itlwm in the config.plist instead. Next, download the Helipad app, run it and add it to "Login Items" (in System Settings) so that it starts automatically with macOS.
+> My config uses `AirportItlwm.kext` by default since it allows accessing the internet during macOS installation (unlike `itlwm.kext` which requires an additional app to do so). On **macOS Sequoia** the included kext is **AirportItlwm-Sequoia v2.4.0-alpha from the [laobamac/itlwm](https://github.com/laobamac/itlwm) fork**, which drives the Intel AC-8265 through the **native Wi-Fi interface** (System Settings, no HeliPort) — tested working on Sequoia 15.8.1, **no [OCLP-Mod](https://github.com/laobamac/OCLP-Mod/releases) patch required**. If you want to use itlwm instead, disable AirportItlwm (all variants) and enable itlwm in the config.plist. Next, download the Helipad app, run it and add it to "Login Items" (in System Settings) so that it starts automatically with macOS.
 
 </details>
 
@@ -443,7 +443,7 @@ and standbydelaylow is used when the remaining battery capacity is below highsta
 - [x] USB ports
 - [x] Internal camera `working fine on FaceTime, Skype, Zoom and others`
 - [x] Sleep / Wake / Shutdown / Reboot
-- [X] Intel WiFi & Bluetooth (thanks to [itlwn](https://github.com/OpenIntelWireless/itlwm) & [Heliport](https://github.com/OpenIntelWireless/HeliPort) )
+- [X] Intel WiFi & Bluetooth (native Wi-Fi via [AirportItlwm-Sequoia v2.4.0-alpha](https://github.com/laobamac/itlwm/releases), no HeliPort needed)
 - [x] iMessage, FaceTime, App Store, iTunes Store `(Requires valid SMBIOS)`
 - [x] Speakers and headphones combo jack
 - [x] Microphone
