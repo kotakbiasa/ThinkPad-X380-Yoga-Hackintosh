@@ -1,3 +1,10 @@
+> ⚠️ **REPO INI SUDAH PINDAH / THIS REPO HAS MOVED**
+>
+> Lokasi baru (aktif): **https://github.com/muhnurfauzan/ThinkPad-X380-Yoga-Hackintosh**
+> New active location: **https://github.com/muhnurfauzan/ThinkPad-X380-Yoga-Hackintosh**
+>
+> Repo ini hanya arsip pointer. / This repo is just a pointer archive.
+
 # Lenovo ThinkPad X380 Yoga - OpenCore Configuration
 
 <img align="right" src="https://p1-ofp.static.pub/medias/bWFzdGVyfHJvb3R8MzY5NzQ4fGltYWdlL3BuZ3xoMTEvaGMwLzE0NDQ4MTg0NTI0ODMwLnBuZ3wyZjE4MmQ5YmEyN2U1M2VhOTJkZDM4NzFjMTUzNDk2M2NmOGQ5OTQ2MjYxNTVlNjY3YmYxMTU4ZDM2Y2RmNjlk/lenovo-laptop-thinkpad-x380-2-in-1-hero.png" alt="macOS running on the X380 Yoga" width="425">
